@@ -1,1 +1,209 @@
-hello
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel = 'stylesheet' href = 'https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css'>
+<script src = 'https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js'></script>
+<link href = 'https://fonts.googleapis.com/icon?family=Material+Icons' rel = 'stylesheet'>
+
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&display=swap" rel="stylesheet">
+
+<style>
+    #banner-title {
+        font-family:"europa";
+    }
+
+    a {
+        -webkit-transition: all .5s ease;
+        -moz-transitition: all .5s ease;
+        -o-transition: all .5s ease;
+        transition: all .5s ease;
+
+        color: rgb(10, 100, 240);
+        border-bottom-color: rgb(240, 240, 240);
+        border-bottom-style: solid;
+    }
+
+    a:hover {
+        border-bottom-color: rgb(50, 100, 240);
+    }
+
+    .eq {
+        text-align:center;
+        margin-top:20px;
+
+    }
+
+    .prettyprint {
+        font-size:12px;
+    }
+
+    .button-a{
+         transition:0.2s all ease;
+        -webkit-transition:0.2s all ease;
+        -moz-transition:all 0.2s ease;
+        -o-transition:all 0.2s ease;
+
+        background-color: rgba(0, 0, 0, 0);
+        color:white
+    }
+
+    .button-a:hover{
+        background-color: rgba(255, 255, 255, .2);
+        color:white;
+    }
+
+    .header {
+        font-size: 25px;
+        margin-bottom: 10px;
+    }
+
+</style>
+
+<head><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes" /></head>
+
+<html>
+    <body style = 'overflow-x:hidden;'>
+
+        <div id = 'content' class = '' style = 'overflow-x:hiden;margin-left:30%; width: 40%; margin-top:50px; font-family: "Georgia", "Segoe UI", "Lato"; font-size: 20px; line-height:1.7em'>
+            <div style = 'line-height:35px' class = 'header'>
+            Fractals like the <a href = 'https://en.wikipedia.org/wiki/Mandelbrot_set'>Mandelbrot Set</a> are traditionally defined by a pretty simple recursive function. What if instead of a simple user-defined function we initiated a random neural network, and used that as the function?
+            <br/><br/>
+            <a href = 'https://github.com/nathan-yan/fractals'>Link to repo</a>
+
+            </div>
+            <br><br>
+
+
+            <div class = 'header'>
+                What is a fractal?
+            </div>
+
+            <div>
+                A fractal is a sort of abstract geometrical object that contains segments which are usually copies of the original. This property is known as self-similarity. One well known fractal which exhibits this behavior perfectly is the <a href = 'https://en.wikipedia.org/wiki/Sierpi%C5%84ski_triangle'>Sierpinski triangle</a>:
+                <br/><br/>
+                <img src = '../fractals/sierpinski.png' style = 'width:25%; margin-left:37.5%'>
+            </div>
+
+            <br/>
+            <br/>
+
+            <div class = 'header'>
+                The Mandelbrot Set
+            </div>
+
+            <div>
+                For those unfamilar to the Mandelbrot set, this is what it looks like
+                <br/><br/>
+                <img src = '../fractals/mandelbrot.png' style = 'width:50%; margin-left:25%'>
+                <br/><br/>
+                The generation process of the Mandelbrot set is pretty simple. We start with a recursive function \(z_{t + 1} = z_{t}^2 + c\). As our base case, \(z_{0} = 0\). To plot the Mandelbrot set, each point on the complex coordinate plane is considered separately, and is the value of \(c\). 
+                <br/>
+                <br/>
+                For a refresher on the complex plane, \(i\) is the imaginary number, and satisfies the property that \(i^2 = -1\). Points on the complex plane are called complex numbers. To convert a real-valued coordinate to a complex number, you take the x-coordinate (the real part) and add it to the y-coordinate (the imaginary part) multiplied by \(i\).
+
+                For example, the point (3, 2) in the real plane is \(3 + 2i\). Complex numbers also have a magnitude, which is just their distance from the origin. It's very simple to compute--just convert the complex number back into a real point--and compute it's distance from the origin with \(\sqrt{x^2 + y^2}\).
+                <br/>
+                <br/>
+                To generate the Mandelbrot set, we look at all points on the complex plane. For each of these points, we evaluate the recursive function, plugging in the point as \(c\). We evaluate the recursive function for some number of iterations \(t\), and at time \(t\) we see if \(z_{t}\) has a magnitude above some threshold. If it is above the threshold, we paint the point white, otherwise we paint it black. In other words, if the value of \(z_{t}\) grows unbounded for a given \(c\), the point on the complex plane \(c\) is colored white, otherwise it is colored black. 
+                <br/>
+                <br/>
+                For the sake of realistic generation, we won't actually look at all points on the complex plane. Our view will be bounded, with both our imaginary and real axes typically within the range \([-1, 1]\) (there isn't much to see beyond that region).
+            </div>
+
+            <br/><br/>
+
+            <div class = 'header'>
+                Fractal generation
+            </div>
+
+
+            <div>
+                Different equations yield different kinds of fractals, and there are all kinds of different things you can try. The point of this project is to use a randomly generated "neural network" as a function (as a disclaimer, it's not really a neural network, because it doesn't try to solve a particular task. However, it does share many of the same aspects, like matrix multiplication and non-linearities) rather than a hand crafted one. Basically, what we're doing is turning our function.
+            </div>
+            <div class = 'eq'>
+                \(z_{t + 1} = z_{t}^2 + c\)
+            </div>
+            <div>
+                into
+            </div>
+            <div class = 'eq'>
+                \(z_{t + 1} = f_{nn}(z_{t}, c)\)
+            </div>
+            <br/>
+            <div>
+                where \(f_{nn}\) is a neural network. The neural network I use in the code has one hidden layer with 10 hidden nodes. The network has two inputs, one for \(z_t\) and one for \(c\). The output of the network is \(z_{t + 1}\). The weights of the network are also complex numbers, with both the real and imaginary components of the weights initialized with a gaussian distribution. The threshold I used was \(0.8\), and I evaluated the neural network for 30 iterations. On my first attempt, I got this photo:
+
+                <div style = "text-align: center">
+                    <img src = '../fractals/fractal1.png' style = 'width:50%'>
+            
+                </div>
+            </div>
+
+            <div>
+                Way cooler than I expected. I then changed the program slightly so that instead of coloring a pixel black or white based on whether or not its value is greater than the threshold, it's colored based on how many iterations it took to exceed the threshold. This gets us an image that less grainy and shows how <i>quickly</i> a point grows unbounded:
+                <br/>
+                <div style = "text-align: center">
+                    <img src = '../fractals/fractal2.png' style = 'width:50%'>
+            
+                </div>            </div>
+
+            <div>
+                The fractal looks different because network weights were initialized at random. I later started recording the seeds (unfortunately I was pretty disorganized while making this, and I don't really know if the seeds correspond to their original images :/ )
+            </div>
+
+            <br/>
+
+            <br/>
+
+            <div class = 'header'>
+                Gallery
+            </div>
+
+                <div>
+                Feel free to do whatever you want with these. You can view full resolution images at <a href = "https://github.com/nathan-yan/fractals/tree/master/fractals">the github repo</a> 
+                <br/><br/>
+            </div>
+
+        </div>
+
+        <div style = 'display: flex; flex-wrap: wrap'>
+            <div style = 'width: 80%; margin-left: 10%; align-items:flex-end;'>
+                <img src = '../fractals/fractal1_.png' style = 'width:49%'>
+                <img src = '../fractals/fractal2_.png' style = 'width:49%;'>
+                <img src = '../fractals/fractal3_.png' style = 'width:49%'>
+                <img src = '../fractals/fractal4_.png' style = 'width: 49%'>
+                <img src = '../fractals/fractal5_.png' style = 'width: 49%'>
+                <img src = '../fractals/fractal6_.png' style = 'width: 49%'>
+                <img src = '../fractals/fractal7_.png' style = 'width: 49%'>
+                <img src = '../fractals/fractal9_.png' style = 'width: 49%'>
+                <img src = '../fractals/fractal10_.png' style = 'width: 49%'>
+                <img src = '../fractals/fractal11_.png' style = 'width: 49%'>
+                <img src = '../fractals/fractal12_.png' style = 'width: 49%'>
+                <img src = '../fractals/fractal13_.png' style = 'width: 49%'>
+                <img src = '../fractals/fractal14_.png' style = 'width: 49%'>
+                <img src = '../fractals/fractal15_.png' style = 'width: 49%'>
+                <img src = '../fractals/fractal16_.png' style = 'width: 49%'>
+                <img src = '../fractals/fractal17_.png' style = 'width: 49%'>        
+                <img src = '../fractals/fractal8_.png' style = 'width: 98%'>
+
+            </div>
+        </div>
+
+        <div style = 'height:50px; width:1px'></div>
+    </body>
+</html>
+
+<script>
+
+$(document).ready(function(){
+      $('.parallax').parallax();
+    });
+
+check_resize()
+
+window.addEventListener("resize", check_resize);
+</script>
