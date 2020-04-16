@@ -61,6 +61,25 @@
         margin-bottom: 10px;
     }
 
+    #content {
+        overflow-x:hiden;
+        margin-left:30%;
+        width: 40%;
+        margin-top:50px;
+        font-family: "Georgia", "Segoe UI", "Lato";
+        font-size: 20px;
+        line-height:1.7em
+    }
+
+    @media only screen and (max-width: 600px) {
+        #content {
+            margin-left: 10%;
+            width: 80%;
+
+            font-size: 18px;
+        }
+    }
+
 </style>
 
 <head><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes" /></head>
@@ -68,7 +87,7 @@
 <html>
     <body style = 'overflow-x:hidden;'>
 
-        <div id = 'content' class = '' style = 'overflow-x:hiden;margin-left:30%; width: 40%; margin-top:50px; font-family: "Georgia", "Segoe UI", "Lato"; font-size: 20px; line-height:1.7em'>
+        <div id = 'content' class = '' style = ''>
             <div style = 'line-height:35px' class = 'header'>
             Fractals like the <a href = 'https://en.wikipedia.org/wiki/Mandelbrot_set'>Mandelbrot Set</a> are traditionally defined by a pretty simple recursive function. What if instead of a simple user-defined function we initiated a random neural network, and used that as the function?
             <br/><br/>
@@ -83,9 +102,11 @@
             </div>
 
             <div>
-                A fractal is a sort of abstract geometrical object that contains segments which are usually copies of the original. This property is known as self-similarity. One well known fractal which exhibits this behavior perfectly is the <a href = 'https://en.wikipedia.org/wiki/Sierpi%C5%84ski_triangle'>Sierpinski triangle</a>:
+                A fractal is a type of abstract geometrical object that contains segments which are usually copies of the original. This property is known as self-similarity. One well known fractal which exhibits this behavior perfectly is the <a href = 'https://en.wikipedia.org/wiki/Sierpi%C5%84ski_triangle'>Sierpinski triangle</a>:
                 <br/><br/>
-                <img src = '../fractals/sierpinski.png' style = 'width:25%; margin-left:37.5%'>
+                <img src = './fractals/sierpinski.png' style = 'width:25%; margin-left:37.5%'>
+                <br/><br/>
+                Fractals are also typically characterized by "infinite detail", which mean they can be zoomed into infinitely without any loss of intricacy.
             </div>
 
             <br/>
@@ -98,17 +119,17 @@
             <div>
                 For those unfamilar to the Mandelbrot set, this is what it looks like
                 <br/><br/>
-                <img src = '../fractals/mandelbrot.png' style = 'width:50%; margin-left:25%'>
+                <img src = './fractals/mandelbrot.png' style = 'width:50%; margin-left:25%'>
                 <br/><br/>
                 The generation process of the Mandelbrot set is pretty simple. We start with a recursive function \(z_{t + 1} = z_{t}^2 + c\). As our base case, \(z_{0} = 0\). To plot the Mandelbrot set, each point on the complex coordinate plane is considered separately, and is the value of \(c\). 
                 <br/>
                 <br/>
-                For a refresher on the complex plane, \(i\) is the imaginary number, and satisfies the property that \(i^2 = -1\). Points on the complex plane are called complex numbers. To convert a real-valued coordinate to a complex number, you take the x-coordinate (the real part) and add it to the y-coordinate (the imaginary part) multiplied by \(i\).
+                For a quick refresher on the complex plane, \(i\) is the imaginary number, and satisfies the property that \(i^2 = -1\). Points on the complex plane are called complex numbers. To convert a real-valued coordinate to a complex number, you take the x-coordinate (the real part) and add it to the y-coordinate (the imaginary part) multiplied by \(i\).
 
-                For example, the point (3, 2) in the real plane is \(3 + 2i\). Complex numbers also have a magnitude, which is just their distance from the origin. It's very simple to compute--just convert the complex number back into a real point--and compute it's distance from the origin with \(\sqrt{x^2 + y^2}\).
+                For example, the point (3, 2) in the real plane is \(3 + 2i\). Complex numbers also have a magnitude, which is just their distance from the origin. It's very simple to compute--just convert the complex number back into a real point--and calculate its distance from the origin with \(\sqrt{x^2 + y^2}\).
                 <br/>
                 <br/>
-                To generate the Mandelbrot set, we look at all points on the complex plane. For each of these points, we evaluate the recursive function, plugging in the point as \(c\). We evaluate the recursive function for some number of iterations \(t\), and at time \(t\) we see if \(z_{t}\) has a magnitude above some threshold. If it is above the threshold, we paint the point white, otherwise we paint it black. In other words, if the value of \(z_{t}\) grows unbounded for a given \(c\), the point on the complex plane \(c\) is colored white, otherwise it is colored black. 
+                To generate the Mandelbrot set, we look at all points on the complex plane. For each of these points, we evaluate the recursive function, plugging in the point as \(c\) and \(0\) for \(z_0\). We evaluate the recursive function for some number of iterations \(t\), and at time \(t\) we see if \(z_{t}\) has a magnitude above some threshold. If it is above the threshold, we paint the point white, otherwise we paint it black. In other words, if the value of \(z_{t}\) grows unbounded for a given \(c\), the point on the complex plane \(c\) is colored white, otherwise it is colored black. 
                 <br/>
                 <br/>
                 For the sake of realistic generation, we won't actually look at all points on the complex plane. Our view will be bounded, with both our imaginary and real axes typically within the range \([-1, 1]\) (there isn't much to see beyond that region).
@@ -135,29 +156,101 @@
             </div>
             <br/>
             <div>
-                where \(f_{nn}\) is a neural network. The neural network I use in the code has one hidden layer with 10 hidden nodes. The network has two inputs, one for \(z_t\) and one for \(c\). The output of the network is \(z_{t + 1}\). The weights of the network are also complex numbers, with both the real and imaginary components of the weights initialized with a gaussian distribution. The threshold I used was \(0.8\), and I evaluated the neural network for 30 iterations. On my first attempt, I got this photo:
-
+                where \(f_{nn}\) is a neural network. The neural network I use in the code has two hidden layers each with 10 hidden nodes. The network has two inputs, one for \(z_t\) and one for \(c\). The output of the network is \(z_{t + 1}\). The weights of the network are also complex numbers, with both the real and imaginary components of the weights initialized with a gaussian distribution. The threshold   I used was \(0.8\), and I evaluated the neural network for 30 iterations. On my first attempt, I got this photo:
+                <br/><br/>
                 <div style = "text-align: center">
-                    <img src = '../fractals/fractal1.png' style = 'width:50%'>
+                    <img src = './fractals/fractal1_.png' style = 'width:50%'>
             
-                </div>
+                </div><br/><br/>
             </div>
 
             <div>
                 Way cooler than I expected. I then changed the program slightly so that instead of coloring a pixel black or white based on whether or not its value is greater than the threshold, it's colored based on how many iterations it took to exceed the threshold. This gets us an image that less grainy and shows how <i>quickly</i> a point grows unbounded:
-                <br/>
+                <br/><br/>
                 <div style = "text-align: center">
-                    <img src = '../fractals/fractal2.png' style = 'width:50%'>
+                    <img src = './fractals/fractal2_.png' style = 'width:50%'>
             
-                </div>            </div>
+                </div>    <br/>        </div>
 
             <div>
                 The fractal looks different because network weights were initialized at random. I later started recording the seeds (unfortunately I was pretty disorganized while making this, and I don't really know if the seeds correspond to their original images :/ )
             </div>
 
             <br/>
-
             <br/>
+
+            
+            <div class = 'header'>
+                Specifics
+            </div>
+
+            <div>
+                I created three variables: \(c, z, \) and a heatmap which I'll call \(h\). \(c\) and \(z\) represent the variables of the recursive function mentioned before. The heatmap is the fractal image and is what is actually plotted. \(c, z, h\) are parameterized by 5 values, which are \(x_{min}, x_{max}, y_{min}, y_{max}, s\). The first four define the lower and upper bounds of the complex plane we'll plot, and \(s\) represents the step, or resolution.
+
+                <div style = 'display: flex; justify-content: center'>
+                <pre style = 'width: fit-content'>
+import numpy as np
+x = np.arange(x_min, x_max, s)
+y = np.arange(x_min, x_max, s)
+
+gx, gy = np.meshgrid(x, y)
+
+c = (gx * 1j + gy).flatten()
+z = np.zeros(len(c))    
+h = np.zeros_like(z)   
+                </pre>
+                </div>
+
+                Next I define my model using a set of weights and non-linearities. The weights are initialized by sampling small numbers from a zero-mean gaussian distribution for both the real and imaginary component. I created a number of models that produced interesting results, so I'll just show one of them here:
+                <div style = 'display: flex; justify-content: center'>
+
+                <pre>
+                    
+weight1 = 0.2 * randn(2, 10) * 1j + 0.2 * randn(2, 10)
+weight2 = 0.35 * randn(10, 10) * 1j + 0.35 * randn(10, 10)
+weight3 = 0.45 * randn(10, 1) * 1j + 0.45 * randn(10, 1)
+
+def model(inp):
+    fc1 = (inp @ weight1) ** np.sqrt(2)
+    fc2 = np.tan((fc1 @ weight2))
+    fc3 = fc2 @ weight3
+
+    return fc3
+                </pre>
+                </div> 
+
+                Since neural networks are basically just matrix multiplication, I don't have to loop through each of the values of \(c\) and \(z\) and compute the recursive function, I can do it all at once! Right now both \(c\) and \(z\) are flattened arrays of some length \(L\). I add an extra dimension to both of them, making them shape \(L \times 1\), then concatenate along the new axis to produce an array of shape \(L \times 2\). Feeding this into the model produces an output of shape \(L \times 1\). To convert this output back into a fully flattened array we just do some simple array slicing. Once the new \(z\) array is calculated, I check whether each value of the array is greater than the threshold 0.8. This whole process is done in a for loop 30 times.
+
+                <div style = 'display: flex; justify-content: center'>
+
+                <pre>
+for iteration in range (30):
+    c_ = np.expand_dims(c, -1)
+    z_ = np.expand_dims(z, -1)
+
+    inp = np.concatenate([c_, z_], axis = -1)
+
+    # compute z{t + 1}
+    z = model(inp)[:, 0]
+
+    h += np.absolute(z) > 0.8
+
+                </pre>
+                </div>
+
+                At the end \(h\) is a heatmap showing which points went above the threshold the fastest. This can be directly plotted using matplotlib, or any other plotting library.
+
+                 <div style = 'display: flex; justify-content: center'>
+
+                <pre>
+import matplotlib.pyplot as plt
+plt.imshow(h)
+plt.show()
+                </pre>
+                </div>
+            </div>
+
+            <br/><br/>
 
             <div class = 'header'>
                 Gallery
@@ -172,23 +265,23 @@
 
         <div style = 'display: flex; flex-wrap: wrap'>
             <div style = 'width: 80%; margin-left: 10%; align-items:flex-end;'>
-                <img src = '../fractals/fractal1_.png' style = 'width:49%'>
-                <img src = '../fractals/fractal2_.png' style = 'width:49%;'>
-                <img src = '../fractals/fractal3_.png' style = 'width:49%'>
-                <img src = '../fractals/fractal4_.png' style = 'width: 49%'>
-                <img src = '../fractals/fractal5_.png' style = 'width: 49%'>
-                <img src = '../fractals/fractal6_.png' style = 'width: 49%'>
-                <img src = '../fractals/fractal7_.png' style = 'width: 49%'>
-                <img src = '../fractals/fractal9_.png' style = 'width: 49%'>
-                <img src = '../fractals/fractal10_.png' style = 'width: 49%'>
-                <img src = '../fractals/fractal11_.png' style = 'width: 49%'>
-                <img src = '../fractals/fractal12_.png' style = 'width: 49%'>
-                <img src = '../fractals/fractal13_.png' style = 'width: 49%'>
-                <img src = '../fractals/fractal14_.png' style = 'width: 49%'>
-                <img src = '../fractals/fractal15_.png' style = 'width: 49%'>
-                <img src = '../fractals/fractal16_.png' style = 'width: 49%'>
-                <img src = '../fractals/fractal17_.png' style = 'width: 49%'>        
-                <img src = '../fractals/fractal8_.png' style = 'width: 98%'>
+                <img src = './fractals/fractal1_.png' style = 'width:49%'>
+                <img src = './fractals/fractal2_.png' style = 'width:49%;'>
+                <img src = './fractals/fractal3_.png' style = 'width:49%'>
+                <img src = './fractals/fractal4_.png' style = 'width: 49%'>
+                <img src = './fractals/fractal5_.png' style = 'width: 49%'>
+                <img src = './fractals/fractal6_.png' style = 'width: 49%'>
+                <img src = './fractals/fractal7_.png' style = 'width: 49%'>
+                <img src = './fractals/fractal9_.png' style = 'width: 49%'>
+                <img src = './fractals/fractal10_.png' style = 'width: 49%'>
+                <img src = './fractals/fractal11_.png' style = 'width: 49%'>
+                <img src = './fractals/fractal12_.png' style = 'width: 49%'>
+                <img src = './fractals/fractal13_.png' style = 'width: 49%'>
+                <img src = './fractals/fractal14_.png' style = 'width: 49%'>
+                <img src = './fractals/fractal15_.png' style = 'width: 49%'>
+                <img src = './fractals/fractal16_.png' style = 'width: 49%'>
+                <img src = './fractals/fractal17_.png' style = 'width: 49%'>        
+                <img src = './fractals/fractal8_.png' style = 'width: 98%'>
 
             </div>
         </div>

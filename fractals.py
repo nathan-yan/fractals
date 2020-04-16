@@ -66,8 +66,8 @@ def graph(params, graph = True):
 
     params['c'] = (xg * 1j + yg).flatten()
 
-    params['z'] = np.zeros(len(params['c'])) * (1j + 1)
-    params['heatmap'] = np.zeros(len(params['c']))
+    params['z'] = np.zeros(len(params['c']))
+    params['heatmap'] = np.zeros_like(params['z'])
 
     for iteration in tqdm(range (30)):
         # plot it
@@ -85,7 +85,7 @@ def graph(params, graph = True):
         params['z'] = model(inp)[:, 0]#
 
         # is z above the threshold?
-        params['heatmap'] += np.absolute(params['z']) > 0.8
+        params['heatmap'] += np.absolute(params['z']) > 1.1
 
     # plot it
     plt.cla()
