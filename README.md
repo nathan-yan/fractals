@@ -6,9 +6,14 @@ Traditional fractals like the Mandelbrot set rely on a recursive function applie
 
 The general description of z{t + 1} is that it is some function of z{t} and c. For example, in the Mandelbrot set, the function is z{t}^2 + c. This project makes the function f_nn(z{t}, c), where f_nn is a "neural network" (it isn't really a neural network because it isn't trying to solve a specific problem, but it's much easier to say it is). 
 
-I randomly initialize 3 "weight" matrices of random complex numbers, and make interesting models, combining matrix multiplication with interesting non-linearities like trigonometric functions, and piecewise functions like min and max. I initialize z{0} to a flattened array of all zeros, and initalize c to a grid of complex numbers. I recursively calculate z{t + 1} using the neural network model, and generate the fractal at the end by calculating for each pixel how many iterations it spent above the magnitude threshold.
+I randomly initialize 3 "weight" matrices of random complex numbers and make interesting models, combining matrix multiplication with interesting non-linearities like trigonometric functions and piecewise functions like min/max. I initialize z{0} to a flattened array of all zeros and initalize c to a grid of complex numbers. I recursively calculate z{t + 1} using the neural network model and generate the fractal at the end by calculating for each pixel how many iterations it spent above the magnitude threshold.
 
 A slightly more elaborate explanation is [here](https://nathan-yan.github.io/fractals).
+
+## Dependencies
+- numpy>=1.16.0
+- matplotlib>=3.0.0
+- tqdm>=4.0.0
 
 ## How to use
 To use run:
@@ -16,13 +21,13 @@ To use run:
   python fractal.py
 ```
 
-You'll be prompted with an input asking for a random seed, press enter if you just want to use a random one. A random fractal will be shown to you, at a fairly low resolution. The reason for the low resolution is because fractal generation is compute intensive, as you need to compute the trajectory of every point on the complex plane; the fact that a neural network is involved greatly increases the compute. 
+You'll be prompted with an input asking for a random seed. Press enter if you just want to use a random one. A fractal will be shown to you, at a fairly low resolution. The reason for the low resolution is because fractal generation is compute intensive, as you need to compute the trajectory of every point on the complex plane; the fact that a neural network is involved greatly increases the compute. 
 
 Click on a region to select a zoom location. A rectangle will show you the bounds of the new fractal. Once you have picked a zoom location you like, type
 ```
   zoom
 ```
-in the prompt to render the zoomed fractal. The default zoom is 2x, but if you would like to zoom in more, you can set the zoom factor by typing
+in the prompt to render the zoomed fractal. The default zoom is 2x, but if you would like to zoom in more you can set the zoom factor by typing
 ```
   setzoom #scale
 ```
