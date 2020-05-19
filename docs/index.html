@@ -37,7 +37,7 @@
     }
 
     .eq {
-        width: 40%;
+        width: 700px;
         text-align:center;
         margin-top:20px;
 
@@ -69,7 +69,6 @@
     }
 
     #content {
-        overflow-x:hiden;
         margin-left:200px;
         margin-top:50px;
         font-family: "Georgia", "Segoe UI", "Lato";
@@ -78,25 +77,76 @@
         font-weight: 300;
     }
 
-    @media only screen and (max-width: 600px) {
-        #content {
-            margin-left: 10%;
-            width: 80%;
-
-            font-size: 18px;
-        }
-    }
-
     .text {
         width: 700px;
     }
 
+    .img {
+        text-align: center;
+        width: 250px; 
+        position: absolute;
+        top: 0;
+        left: 775px;
+    }
+
+    .image {
+        width: 100%;
+    }
+
+
+    @media only screen and (max-width: 1400px) {
+        #content {
+            margin-left: 10vw;
+            font-size: 19px;
+        }
+
+        .text {
+            width: 50vw;
+            min-width: 500px;
+        }
+
+        .img {
+            left: 60vw;
+        }
+    }
+
+    @media only screen and (max-width: 1000px) {
+        #content {
+            margin-left: 10vw;
+            width: 80vw;
+
+            font-size: 18px;
+        }
+
+        .text {
+            width: 80vw;
+            font-size: 18px;
+        }
+
+        .img {
+            width: 80vw;
+            text-align: center;
+            position: initial;
+        }
+
+        .image {
+            margin-top: 30px;
+            width: 80%;
+        }
+
+        .eq {
+            width: 100%;
+        }
+    }
+
+   
 </style>
 
-<head><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes" /></head>
+<head><meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
 
 <html>
-    <body style = 'overflow-x:hidden;'>
+    <body style = ''>
 
         <div id = 'content' class = '' style = ''>
             <div style = 'font-size: 40px; line-height: 50px; margin-bottom: 20px' class = 'header text'>Generating fractals with complex "neural networks"</div>
@@ -117,10 +167,10 @@
                 <div class = 'text'>
                     A fractal is a type of abstract geometrical object that contains segments which are usually copies of the original. This property is known as self-similarity. One well known fractal which exhibits this behavior perfectly is the <a href = 'https://en.wikipedia.org/wiki/Sierpi%C5%84ski_triangle'>Sierpinski triangle</a>
                     <br/><br/>
-                    Fractals are also typically characterized by "infinite detail", which mean they can be zoomed into infinitely without any loss of intricacy. Fractals are known for their appearances in all kinds of places you wouldn't expect, including the coastlines of countries, the waves of oceans, and even in antenna design. One other interesting property of fractals are that they typically exhibit non-integer dimensionality, because of their self-similarity.
+                    Fractals are also typically characterized by "infinite detail", which means they can be zoomed into infinitely without any loss of intricacy. Fractals are known for their appearances in all kinds of places you wouldn't expect, including the coastlines of countries, the waves of oceans, and even in antenna design. One other interesting property of fractals is that they typically exhibit non-integer dimensionality, because of their self-similarity.
                 </div>
-                <div style = 'text-align: center; width: 40%; position: absolute; top:0 ; left: 40%'>
-                    <img src = './fractals/sierpinski.png' style = 'width:40%;'>
+                <div class = 'img' >
+                    <img src = './fractals/sierpinski.png' class = 'image'>
                     <br/>
                     <div style = ' font-size: 15px;'>The Sierpinski Triangle</div>
                 </div>
@@ -139,8 +189,8 @@
                     The generation process of the Mandelbrot set is pretty simple. We start with a recursive function \(z_{t + 1} = z_{t}^2 + c\). As our base case, \(z_{0} = 0\). To plot the Mandelbrot set, each point on the complex coordinate plane is considered separately, and is the value of \(c\). 
                 </div>
             
-                <div style = 'text-align: center; width: 40%; position: absolute; top:0 ; left: 40%'>
-                    <img src = './fractals/mandelbrot.png' style = 'width:40%;'>
+                <div class = 'img'>
+                    <img src = './fractals/mandelbrot.png' class = 'image'>
                     <br/>
                     <div style = ' font-size: 15px;'>The Mandelbrot set</div>
                 </div>
@@ -183,13 +233,14 @@
                 <div class = 'text'>
                     where \(f_{nn}\) is a neural network. The neural network I use in the code has two hidden layers each with 10 hidden nodes. The network has two inputs, one for \(z_t\) and one for \(c\). The output of the network is \(z_{t + 1}\). The weights of the network are also complex numbers, with both the real and imaginary components of the weights initialized with a gaussian distribution. The threshold   I used was \(0.8\), and I evaluated the neural network for 30 iterations. On my first attempt, I got the photo on the right:
                 </div>
-                <div style = 'text-align: center; width: 40%; position: absolute; top:0 ; left: 40%'>
-                    <img src = './fractals/fractal1_.png' style = 'width:40%;'>
+                <div class = 'img'>
+                    <img src = './fractals/fractal1_.png' class = 'image'>
                     <br/>
                     <div style = ' font-size: 15px;'>Way cooler than I expected</div>
                 </div>
-                <br/><br/><br/>
             </div>
+
+            <br/>
 
             <div style = 'position: relative;'>
                 <div class = 'text'>
@@ -200,8 +251,8 @@
                     The fractal looks different because network weights were initialized at random. I later started recording the seeds (unfortunately I was pretty disorganized while making this, and I don't really know if the seeds correspond to their original images :/ )
                 </div>
 
-                <div style = "text-align: center; width: 40%; position: absolute; bottom:0; left: 40%">
-                    <img src = './fractals/fractal2_.png' style = 'width:40%'>
+                <div  class = 'img' style = 'top: inherit; bottom: 0px'>
+                    <img src = './fractals/fractal2_.png' class = 'image'>
                     <br/>
                     <div style = 'font-size: 15px;'>Smoothed version</div>
             
@@ -296,23 +347,23 @@ plt.show()
 
         <div style = 'display: flex; flex-wrap: wrap'>
             <div style = 'width: 80%; margin-left: 10%; align-items:flex-end;'>
-                <img src = './fractals/fractal1_.png' style = 'width:49%'>
-                <img src = './fractals/fractal2_.png' style = 'width:49%;'>
-                <img src = './fractals/fractal3_.png' style = 'width:49%'>
-                <img src = './fractals/fractal4_.png' style = 'width: 49%'>
-                <img src = './fractals/fractal5_.png' style = 'width: 49%'>
-                <img src = './fractals/fractal6_.png' style = 'width: 49%'>
-                <img src = './fractals/fractal7_.png' style = 'width: 49%'>
-                <img src = './fractals/fractal9_.png' style = 'width: 49%'>
-                <img src = './fractals/fractal10_.png' style = 'width: 49%'>
-                <img src = './fractals/fractal11_.png' style = 'width: 49%'>
-                <img src = './fractals/fractal12_.png' style = 'width: 49%'>
-                <img src = './fractals/fractal13_.png' style = 'width: 49%'>
-                <img src = './fractals/fractal14_.png' style = 'width: 49%'>
-                <img src = './fractals/fractal15_.png' style = 'width: 49%'>
-                <img src = './fractals/fractal16_.png' style = 'width: 49%'>
-                <img src = './fractals/fractal17_.png' style = 'width: 49%'>        
-                <img src = './fractals/fractal8_.png' style = 'width: 98%'>
+                <img src = './fractals/fractal1_.png' style = 'width:48.5%'>
+                <img src = './fractals/fractal2_.png' style = 'width:48.5%;'>
+                <img src = './fractals/fractal3_.png' style = 'width:48.5%'>
+                <img src = './fractals/fractal4_.png' style = 'width: 48.5%'>
+                <img src = './fractals/fractal5_.png' style = 'width: 48.5%'>
+                <img src = './fractals/fractal6_.png' style = 'width: 48.5%'>
+                <img src = './fractals/fractal7_.png' style = 'width: 48.5%'>
+                <img src = './fractals/fractal9_.png' style = 'width: 48.5%'>
+                <img src = './fractals/fractal10_.png' style = 'width: 48.5%'>
+                <img src = './fractals/fractal11_.png' style = 'width: 48.5%'>
+                <img src = './fractals/fractal12_.png' style = 'width: 48.5%'>
+                <img src = './fractals/fractal13_.png' style = 'width: 48.5%'>
+                <img src = './fractals/fractal14_.png' style = 'width: 48.5%'>
+                <img src = './fractals/fractal15_.png' style = 'width: 48.5%'>
+                <img src = './fractals/fractal16_.png' style = 'width: 48.5%'>
+                <img src = './fractals/fractal17_.png' style = 'width: 48.5%'>        
+                <img src = './fractals/fractal8_.png' style = 'width: 100%'>
 
             </div>
         </div>
