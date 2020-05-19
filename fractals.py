@@ -16,14 +16,17 @@ from tqdm import tqdm
         - something very interesting is to actually optimize this model on a task, maybe the MNIST dataset, and see how the fractal evolves as the model is optimize. Not sure if this is possible, and optimizing neural networks with complex weights seems to be much more involved than real-valued weights
 """
 
-weight1 = 0.2 * np.random.randn(2, 10) * 1j + 0.2 * np.random.randn(2, 10)
-weight2 = 0.35 * np.random.randn(10, 10) * 1j + 0.35 * np.random.randn(10, 10)
-weight3 = 0.45 * np.random.randn(10, 1) * 1j + 0.45 * np.random.randn(10, 1)
+weight1 = 0.2 * np.random.randn(2, 5) * 1j + 0.2 * np.random.randn(2, 5)
+weight2 = 0.35 * np.random.randn(5, 5) * 1j + 0.35 * np.random.randn(5, 5)
+weight3 = 0.45 * np.random.randn(5, 1) * 1j + 0.45 * np.random.randn(5, 1)
 
 def model(inp):
+    #fc1 = np.tan(inp @ weight1) 
+    #fc2 = fc1 @ weight2
+    #fc3 = fc2 @ weight3
+    
     """
     MODEL 1:
-        
     
     fc1 = (inp @ weight1) ** np.sqrt(2)
     fc2 = np.tan((fc1 @ weight2))
@@ -34,17 +37,16 @@ def model(inp):
     MODEL 2:
     This model is particularly interesting because of the piecewise nature of the non-linearity (max). This results in fragments or shards in the end fractal.
     """
-    fc1 = np.maximum((inp @ weight1) ** np.sqrt(2), 0)
-    fc2 = np.maximum(np.tan((fc1 @ weight2)), 0)
-    fc3 = fc2 @ weight3 
+    #fc1 = np.maximum((inp @ weight1) ** np.sqrt(2), 0)
+    #fc2 = np.maximum(np.tan((fc1 @ weight2)), 0)
+    #fc3 = fc2 @ weight3 
 
-    """
-    MODEL 3:
+    
+    #MODEL 3:
     fc1 = (np.minimum(inp, 0) @ weight1) ** np.sqrt(2)
     fc2 = np.tan(fc1 @ weight2)
     fc3 = fc2 @ weight3
-    """
-
+    
     return fc3
 
 def graph(params, graph = True):
@@ -85,7 +87,7 @@ def graph(params, graph = True):
         params['z'] = model(inp)[:, 0]#
 
         # is z above the threshold?
-        params['heatmap'] += np.absolute(params['z']) > 1.1
+        params['heatmap'] += np.absolute(params['z']) > 0.8
 
     # plot it
     plt.cla()

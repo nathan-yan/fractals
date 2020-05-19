@@ -3,6 +3,7 @@
 <script src = 'https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js'></script>
 <link href = 'https://fonts.googleapis.com/icon?family=Material+Icons' rel = 'stylesheet'>
 
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans&display=swap" rel="stylesheet">
 
 <script type="text/javascript" async
   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
@@ -14,6 +15,10 @@
 <style>
     #banner-title {
         font-family:"europa";
+    }
+
+    body {
+        font-family: "DM Mono"
     }
 
     a {
@@ -32,6 +37,7 @@
     }
 
     .eq {
+        width: 40%;
         text-align:center;
         margin-top:20px;
 
@@ -59,16 +65,17 @@
     .header {
         font-size: 25px;
         margin-bottom: 10px;
+        
     }
 
     #content {
         overflow-x:hiden;
-        margin-left:30%;
-        width: 40%;
+        margin-left:200px;
         margin-top:50px;
         font-family: "Georgia", "Segoe UI", "Lato";
         font-size: 20px;
-        line-height:1.7em
+        line-height:1.7em;
+        font-weight: 300;
     }
 
     @media only screen and (max-width: 600px) {
@@ -80,6 +87,10 @@
         }
     }
 
+    .text {
+        width: 700px;
+    }
+
 </style>
 
 <head><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes" /></head>
@@ -88,25 +99,31 @@
     <body style = 'overflow-x:hidden;'>
 
         <div id = 'content' class = '' style = ''>
-            <div style = 'line-height:35px' class = 'header'>
-            Fractals like the <a href = 'https://en.wikipedia.org/wiki/Mandelbrot_set'>Mandelbrot Set</a> are traditionally defined by a pretty simple recursive function. What if instead of a simple user-defined function we initiated a random neural network, and used that as the function?
+            <div style = 'font-size: 40px; line-height: 50px; margin-bottom: 20px' class = 'header text'>Generating fractals with complex "neural networks"</div>
+            <div style = 'font-size: 20px; margin-bottom: 100px; font-family:"DM Mono"; color: gray' class = ' text'>May 18, 2020 · <a href = 'https://github.com/nathan-yan/fractals' style = 'margin-bottom: 100px'>Link to repo</a></div>
+
+            <div style = 'line-height:35px' class = 'header text'>
+            Fractals like the <a href = 'https://en.wikipedia.org/wiki/Mandelbrot_set'>Mandelbrot Set</a> are traditionally defined by simple recursive functions. What if we initiated a random neural network and used that instead of a simple user-defined function?
             <br/><br/>
-            <a href = 'https://github.com/nathan-yan/fractals'>Link to repo</a>
 
             </div>
-            <br><br>
 
 
             <div class = 'header'>
                 What is a fractal?
             </div>
 
-            <div>
-                A fractal is a type of abstract geometrical object that contains segments which are usually copies of the original. This property is known as self-similarity. One well known fractal which exhibits this behavior perfectly is the <a href = 'https://en.wikipedia.org/wiki/Sierpi%C5%84ski_triangle'>Sierpinski triangle</a>:
-                <br/><br/>
-                <img src = './fractals/sierpinski.png' style = 'width:25%; margin-left:37.5%'>
-                <br/><br/>
-                Fractals are also typically characterized by "infinite detail", which mean they can be zoomed into infinitely without any loss of intricacy.
+            <div style = 'position: relative'>
+                <div class = 'text'>
+                    A fractal is a type of abstract geometrical object that contains segments which are usually copies of the original. This property is known as self-similarity. One well known fractal which exhibits this behavior perfectly is the <a href = 'https://en.wikipedia.org/wiki/Sierpi%C5%84ski_triangle'>Sierpinski triangle</a>
+                    <br/><br/>
+                    Fractals are also typically characterized by "infinite detail", which mean they can be zoomed into infinitely without any loss of intricacy. Fractals are known for their appearances in all kinds of places you wouldn't expect, including the coastlines of countries, the waves of oceans, and even in antenna design. One other interesting property of fractals are that they typically exhibit non-integer dimensionality, because of their self-similarity.
+                </div>
+                <div style = 'text-align: center; width: 40%; position: absolute; top:0 ; left: 40%'>
+                    <img src = './fractals/sierpinski.png' style = 'width:40%;'>
+                    <br/>
+                    <div style = ' font-size: 15px;'>The Sierpinski Triangle</div>
+                </div>
             </div>
 
             <br/>
@@ -116,13 +133,20 @@
                 The Mandelbrot Set
             </div>
 
-            <div>
-                For those unfamilar to the Mandelbrot set, this is what it looks like
-                <br/><br/>
-                <img src = './fractals/mandelbrot.png' style = 'width:50%; margin-left:25%'>
-                <br/><br/>
-                The generation process of the Mandelbrot set is pretty simple. We start with a recursive function \(z_{t + 1} = z_{t}^2 + c\). As our base case, \(z_{0} = 0\). To plot the Mandelbrot set, each point on the complex coordinate plane is considered separately, and is the value of \(c\). 
-                <br/>
+            
+            <div style = 'position: relative'>
+                <div class = 'text'>
+                    The generation process of the Mandelbrot set is pretty simple. We start with a recursive function \(z_{t + 1} = z_{t}^2 + c\). As our base case, \(z_{0} = 0\). To plot the Mandelbrot set, each point on the complex coordinate plane is considered separately, and is the value of \(c\). 
+                </div>
+            
+                <div style = 'text-align: center; width: 40%; position: absolute; top:0 ; left: 40%'>
+                    <img src = './fractals/mandelbrot.png' style = 'width:40%;'>
+                    <br/>
+                    <div style = ' font-size: 15px;'>The Mandelbrot set</div>
+                </div>
+            </div>
+            
+            <div class = 'text'>
                 <br/>
                 For a quick refresher on the complex plane, \(i\) is the imaginary number, and satisfies the property that \(i^2 = -1\). Points on the complex plane are called complex numbers. To convert a real-valued coordinate to a complex number, you take the x-coordinate (the real part) and add it to the y-coordinate (the imaginary part) multiplied by \(i\).
 
@@ -142,7 +166,7 @@
             </div>
 
 
-            <div>
+            <div class = 'text'>
                 Different equations yield different kinds of fractals, and there are all kinds of different things you can try. The point of this project is to use a randomly generated "neural network" as a function (as a disclaimer, it's not really a neural network, because it doesn't try to solve a particular task. However, it does share many of the same aspects, like matrix multiplication and non-linearities) rather than a hand crafted one. Basically, what we're doing is turning our function.
             </div>
             <div class = 'eq'>
@@ -155,25 +179,36 @@
                 \(z_{t + 1} = f_{nn}(z_{t}, c)\)
             </div>
             <br/>
-            <div>
-                where \(f_{nn}\) is a neural network. The neural network I use in the code has two hidden layers each with 10 hidden nodes. The network has two inputs, one for \(z_t\) and one for \(c\). The output of the network is \(z_{t + 1}\). The weights of the network are also complex numbers, with both the real and imaginary components of the weights initialized with a gaussian distribution. The threshold   I used was \(0.8\), and I evaluated the neural network for 30 iterations. On my first attempt, I got this photo:
-                <br/><br/>
-                <div style = "text-align: center">
-                    <img src = './fractals/fractal1_.png' style = 'width:50%'>
-            
-                </div><br/><br/>
+            <div style = 'position: relative'>
+                <div class = 'text'>
+                    where \(f_{nn}\) is a neural network. The neural network I use in the code has two hidden layers each with 10 hidden nodes. The network has two inputs, one for \(z_t\) and one for \(c\). The output of the network is \(z_{t + 1}\). The weights of the network are also complex numbers, with both the real and imaginary components of the weights initialized with a gaussian distribution. The threshold   I used was \(0.8\), and I evaluated the neural network for 30 iterations. On my first attempt, I got the photo on the right:
+                </div>
+                <div style = 'text-align: center; width: 40%; position: absolute; top:0 ; left: 40%'>
+                    <img src = './fractals/fractal1_.png' style = 'width:40%;'>
+                    <br/>
+                    <div style = ' font-size: 15px;'>Way cooler than I expected</div>
+                </div>
+                <br/><br/><br/>
             </div>
 
-            <div>
-                Way cooler than I expected. I then changed the program slightly so that instead of coloring a pixel black or white based on whether or not its value is greater than the threshold, it's colored based on how many iterations it took to exceed the threshold. This gets us an image that less grainy and shows how <i>quickly</i> a point grows unbounded:
-                <br/><br/>
-                <div style = "text-align: center">
-                    <img src = './fractals/fractal2_.png' style = 'width:50%'>
-            
-                </div>    <br/>        </div>
+            <div style = 'position: relative;'>
+                <div class = 'text'>
+                    Way cooler than I expected. I then changed the program slightly so that instead of coloring a pixel black or white based on whether or not its value is greater than the threshold, it's colored based on how many iterations it took to exceed the threshold. This gets us an image that less grainy and shows how <i>quickly</i> a point grows unbounded:
 
-            <div>
-                The fractal looks different because network weights were initialized at random. I later started recording the seeds (unfortunately I was pretty disorganized while making this, and I don't really know if the seeds correspond to their original images :/ )
+                    <br/><br/>
+
+                    The fractal looks different because network weights were initialized at random. I later started recording the seeds (unfortunately I was pretty disorganized while making this, and I don't really know if the seeds correspond to their original images :/ )
+                </div>
+
+                <div style = "text-align: center; width: 40%; position: absolute; bottom:0; left: 40%">
+                    <img src = './fractals/fractal2_.png' style = 'width:40%'>
+                    <br/>
+                    <div style = 'font-size: 15px;'>Smoothed version</div>
+            
+                </div>   
+            </div>
+
+            <div class = 'text'>
             </div>
 
             <br/>
@@ -184,7 +219,7 @@
                 Specifics
             </div>
 
-            <div>
+            <div class = 'text'>
                 I created three variables: \(c, z, \) and a heatmap which I'll call \(h\). \(c\) and \(z\) represent the variables of the recursive function mentioned before. The heatmap is the fractal image and is what is actually plotted. \(c, z, h\) are parameterized by 5 values, which are \(x_{min}, x_{max}, y_{min}, y_{max}, s\). The first four define the lower and upper bounds of the complex plane we'll plot, and \(s\) represents the step, or resolution.
 
                 <div style = 'display: flex; justify-content: center'>
@@ -200,12 +235,10 @@ z = np.zeros(len(c))
 h = np.zeros_like(z)   
                 </pre>
                 </div>
-
                 Next I define my model using a set of weights and non-linearities. The weights are initialized by sampling small numbers from a zero-mean gaussian distribution for both the real and imaginary component. I created a number of models that produced interesting results, so I'll just show one of them here:
                 <div style = 'display: flex; justify-content: center'>
 
                 <pre>
-                    
 weight1 = 0.2 * randn(2, 10) * 1j + 0.2 * randn(2, 10)
 weight2 = 0.35 * randn(10, 10) * 1j + 0.35 * randn(10, 10)
 weight3 = 0.45 * randn(10, 1) * 1j + 0.45 * randn(10, 1)
@@ -234,10 +267,8 @@ for iteration in range (30):
     z = model(inp)[:, 0]
 
     h += np.absolute(z) > 0.8
-
                 </pre>
                 </div>
-
                 At the end \(h\) is a heatmap showing which points went above the threshold the fastest. This can be directly plotted using matplotlib, or any other plotting library.
 
                  <div style = 'display: flex; justify-content: center'>
@@ -256,7 +287,7 @@ plt.show()
                 Gallery
             </div>
 
-                <div>
+                <div class= 'text'>
                 Feel free to do whatever you want with these. You can view full resolution images at <a href = "https://github.com/nathan-yan/fractals/tree/master/fractals">the github repo</a> 
                 <br/><br/>
             </div>
